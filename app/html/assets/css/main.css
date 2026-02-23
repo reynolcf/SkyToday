@@ -1,0 +1,260 @@
+:root {
+    --black-text: #061629;
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eef5ff;
+    font-family: "Poppins";
+    color: var(--black-text) !important;
+}
+
+
+nav {
+    background-color: #eef5ff
+}
+
+.shadow {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  opacity: 0;
+}
+
+.slide-in-left.animate {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(+100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  opacity: 0;
+}
+
+.slide-in-right.animate {
+  animation: slideInRight 1s ease-out forwards;
+}
+
+
+@keyframes slideInUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-up {
+  opacity: 0;
+}
+
+.slide-in-up.animate {
+  animation: slideInUp 1s ease-out forwards;
+}
+
+@keyframes slideInDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-down {
+  opacity: 0;
+}
+
+.slide-in-down.animate {
+  animation: slideInDown 1s ease-out forwards;
+}
+
+footer.main {
+    background-color: #00b8f1;
+}
+
+
+div.swing-bar {
+    width: 100%;
+    height: 160px;
+    background-color: #eef5ff;
+    overflow: hidden;
+}
+
+div.swing-bar-2 {
+    width: 100%;
+    height: auto;
+    background-color: #eef5ff;
+    overflow: hidden;
+}
+
+h1.header-title {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #08303f;
+}
+
+div.personal-page-name-container {
+    margin-top: 76px;
+    margin-left: 50px;
+    width: auto;
+    height: auto;
+    background-color: #eef5ff;
+    overflow: hidden;
+}
+
+div.personal-page-img-holder {
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 25%;
+    height: auto;
+    overflow: hidden;
+}
+
+img.personal-page-img {
+    width: 500px;
+    height: auto;
+}
+
+div.personal-page-description-container {
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 60%;
+    height: auto;
+}
+
+p.app-description {
+    font-size: 1.5rem;
+    color: #0d526d;
+    width: 60%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+p.app-description-2 {
+    font-size: 1.5rem;
+    color: #0d526d;
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+
+p.app-description-3 {
+    font-size: 1.5rem;
+    color: #0d526d;
+    width: 80%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+p.personal-page-description {
+    font-size: 1.5rem;
+    color: #000000;
+    width: auto;
+    text-align: left;
+    margin-top: 20px;
+}
+
+
+
+h1.personal-page-title {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #08303f;
+    justify-content: center;
+    width: auto;
+}
+
+div.gap {
+    height: 80px;
+}
+
+div.gap2 {
+    height: 160px;
+}
+
+div.gap3 {
+    height: 240px;
+}
+
+button.sky-btn {
+    background-color: #00b8f1;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.sky-btn:hover {
+    background-color: #008ab4;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+button.sky-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+
+button.link-btn {
+    background-color: #00b8f1;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.link-btn:hover {
+    background-color: #008ab4;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+button.link-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+

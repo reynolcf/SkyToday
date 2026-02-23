@@ -1,0 +1,27 @@
+.skills-card {
+    aspect-ratio: 1;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-icon {
+  width: 80%;
+  aspect-ratio: 1;           
+  display: flex;
+  align-items: center;      
+  justify-content: center;   
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.skill-icon img {
+    object-fit: contain;
+}
+
+.skill-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}

@@ -1,0 +1,25 @@
+p.personal-page-school {
+    font-size: 2rem;
+    color: #000000;
+    width: auto;
+    text-align: left;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+p.personal-page-major {
+    font-size: 1.5rem;
+    color: #000000;
+    width: auto;
+    text-align: left;
+    margin-top: 20px;
+}
+
+p.personal-page-grad-date {
+    font-size: 1.5rem;
+    color: #000000;
+    width: auto;
+    text-align: left;
+    margin-top: 20px;
+}
+
