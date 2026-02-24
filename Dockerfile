@@ -25,6 +25,7 @@ RUN a2ensite default-ssl
 
 # Optional system update
 RUN apt-get update && apt-get upgrade -y
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring
 
 # Expose ports
 EXPOSE 80 443
