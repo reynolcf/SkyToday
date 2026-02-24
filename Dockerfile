@@ -4,7 +4,7 @@ FROM php:8.2-apache
 RUN a2enmod rewrite ssl socache_shmcb
 
 # Copy your app files into Apache web root
-COPY app/html/ /var/www/html/
+COPY app/ /var/www/html/
 
 # Fix file permissions
 RUN chown -R www-data:www-data /var/www/html/
