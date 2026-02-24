@@ -23,7 +23,7 @@ RUN echo '<Directory /var/www/html>\n\
     Require all granted\n\
 </Directory>' > /etc/apache2/conf-available/site.conf && a2enconf site
 
-# Set working directory
+# Set working directory for Apache
 WORKDIR /var/www/html
 
 # Expose port 80
