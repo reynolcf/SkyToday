@@ -1,0 +1,118 @@
+.main-container {
+    width: 78vw;
+    margin: 0 auto;
+    min-height: 800px;
+}
+
+.first-container {
+    margin-top: 120px !important;
+    width: 78vw;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+
+.about-tibbet {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7.5px 13.5px;
+  border-radius: 800px;
+  font-size: 0.825rem;
+  white-space: nowrap;
+  border: 1px solid #eef5ff;
+}
+
+.first-section {
+    padding: 20px;
+}
+
+.first-section-background {
+    background-color: #00b8f1;
+    width: 100vw;     
+    z-index: -1;
+}
+
+
+.profile {
+
+
+}
+
+.first-section .my-info {
+    color: #eef5ff;
+}
+
+.skills-card {
+ 
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-icon {
+  width: 80%;
+       
+  display: flex;
+  align-items: center;      
+  justify-content: center;   
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.skill-icon img {
+    object-fit: contain;
+}
+
+.skill-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.contribution-card {
+    height: fit-content
+}
+
+.contribution-container {
+    width: 100% !important;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .contribution-container {
+    width: 65% !important;
+  }
+}
+
+@media (min-width: 580px) {
+  .contribution-container {
+    width: 80% !important;
+  }
+}
+.cont-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16%;
+    background-color: gray;
+    text-align: center;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00b8f1;
+}
+
+.cont-img img {
+    width: 80%;
+}
+
+.contribution-card hr {
+  width: 100%;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}

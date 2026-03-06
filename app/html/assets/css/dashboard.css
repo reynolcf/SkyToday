@@ -1,0 +1,150 @@
+.main-container {
+  width: 80vw;
+  margin: 0 auto;
+  min-height: 1500px;
+}
+
+.search-container {
+  height: 50px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+#inputLocation {
+  border: none;
+  padding: 10.5px 13.5px;
+  font-size: 0.825rem;
+}
+
+#location-desc,
+#location-coords {
+  font-size: 0.75rem;
+}
+
+#inputLocation:focus {
+  box-shadow: none !important;
+}
+
+#btnGetWeather {
+  border-radius: 0;
+  padding: 0 30px;
+  font-size: 0.825rem;
+  background-color: #00b8f1;
+}
+
+.btn-primary {
+  background-color: #00b8f1 !important;
+  border-color: #00b8f1 !important;
+}
+
+.btn-primary:hover {
+  background-color: #00a9dc !important;
+  border-color: #00a9dc !important;
+}
+
+
+.location-text {
+  font-size: 3.75rem;
+}
+
+.api-component {
+  border-radius: 15px !important;
+  border: 1px solid #ccc;
+}
+
+
+
+.api-card {
+  min-height: fit-content;
+  border-radius: 11.25px !important;
+
+
+}
+
+.api-temp {
+  font-size: 4.5rem;
+  margin-right: 20px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+
+.api-temp-high {
+  font-size: 0.9rem;
+  margin-left: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 4.5px;
+  align-items: center;
+}
+
+.first-section {
+  margin: 15px 0px;
+}
+
+.live-scroll {
+  white-space: nowrap;
+  border: 1px solid #ccc;
+}
+
+.scroll-hour {
+  font-size: 0.7rem;
+}
+.ai-sect {
+  display: flex;
+  align-items: flex-start;
+  gap: 7.5px;
+  font-size: 0.75rem;
+}
+
+.card-left {
+  margin-left: 15px;
+}
+.api-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7.5px 13.5px;
+  border-radius: 800px;
+  font-size: 0.825rem;
+  white-space: nowrap;
+  border: 1px solid #ccc;
+}
+
+
+
+.forecast-card {
+  cursor: pointer;
+  height: 50px;
+}
+
+.forecast-sub-container {
+  transition: height 0.4s ease, padding 0.4s ease;
+  overflow: hidden;
+  max-height: 0px;
+}
+
+.forecast-sub-container.expanded {
+  max-height: 500px;
+}
+
+.forecast-divider-item {
+  flex: 1;
+}
+
+
+.hr-with-image {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hr-with-image hr {
+  flex: 1;
+}
+
+
+.spinner-blue {
+  color: #00b8f1 !important;
+}
