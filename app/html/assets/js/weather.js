@@ -114,15 +114,15 @@ function buildWeather(data) {
 
   const wA = data.weatherapi;
   const wB = data.openmeteo;
-  const openAI = data.openai;
+  const aiSummary = data.openai; // This is the string from Gemini
   const locationData = data.locationData;
 
-  // fill in the location tab
   renderLocation(locationData);
 
-  // right card
-  const html = buildWeatherApiCard(wA, openAI["summary1"]);
-  buildOpenMeteoCard(wB, openAI["summary2"]);
+  // Pass the actual string directly
+  const html = buildWeatherApiCard(wA, aiSummary);
+  buildOpenMeteoCard(wB, aiSummary); 
+  
   $("#result").html(html);
 }
 function getWeather() {
@@ -674,9 +674,16 @@ function buildWeatherApiCard(data, openAiResponse) {
 
 // Open-Meteo version of your card builder
 function buildOpenMeteoCard(data, openAiResponse) {
+  // If PHP failed to get OpenMeteo data, stop here so the whole page doesn't crash
+  if (!data || !data.current) {
+    console.error("OpenMeteo data is missing!");
+    return;
+  }
+
+  const current = data.current;
   // ===== CURRENT CONDITIONS =====
   // Open-Meteo: current fields live in `data.current`
-  const current = data.current || {};
+  // const current = data.current || {};
 
   const temp_f = current.temperature_2m;
   const feelslike_f = current.apparent_temperature;
