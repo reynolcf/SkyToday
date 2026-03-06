@@ -140,6 +140,7 @@ function getWeather() {
     data: { query: query }, // ZIP or address
   })
     .done(function (data) {
+      console.log("RAW API DATA:", data);
       if (!data.success) {
         $("#result").html("Error: " + data.error);
         return;

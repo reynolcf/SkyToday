@@ -27,21 +27,24 @@ class OpenMeteo {
     }
 
     public function getWeather(float $lat, float $lon): array {
-        $params = [
-            "latitude"           => $lat,
-            "longitude"          => $lon,
-            // Added 'time' to current and hourly as your JS looks for it
-            "current"            => "time,temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,pressure_msl,wind_speed_10m,wind_gusts_10m,weather_code",
-            "hourly"             => "time,temperature_2m,weather_code", 
-            "daily"              => "time,temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max,wind_speed_10m_max,snowfall_sum,weather_code",
-            "forecast_days"      => 6,
-            "temperature_unit"   => "fahrenheit",
-            "wind_speed_unit"    => "mph",
-            "precipitation_unit" => "inch",
-            "timezone"           => "auto"
-        ];
+    // We use a simple array and let http_build_query handle the encoding
+    $params = [
+        "latitude"  => $lat,
+        "longitude" => $lon,
+        // 'current' needs these specific fields for your createAllInfoTags function
+        "current"   => "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,pressure_msl,wind_speed_10m,wind_gusts_10m",
+        // 'hourly' needs these for the scroll bars
+        "hourly"    => "temperature_2m,weather_code",
+        // 'daily' needs these for the forecast rows
+        "daily"     => "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max,wind_speed_10m_max,snowfall_sum",
+        "temperature_unit"   => "fahrenheit",
+        "wind_speed_unit"    => "mph",
+        "precipitation_unit" => "inch",
+        "timezone"           => "auto"
+    ];
 
-        $url = "https://api.open-meteo.com/v1/forecast?" . http_build_query($params);
-        return $this->curlGet($url);
+    $url = "https://api.open-meteo.com/v1/forecast?" . http_build_query($params);
+    
+    return $this->curlGet($url);
     }
 }
