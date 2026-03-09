@@ -29,6 +29,12 @@ class Gemini {
         $result = json_decode($response, true);
         curl_close($ch);
 
+        // --- INJECT INTO BROWSER CONSOLE ---
+        $json_debug = json_encode($result);
+        echo "<script>console.log('--- Gemini Debug ---');</script>";
+        echo "<script>console.dir($json_debug);</script>";
+        // -
+
         // Dig into the Gemini response structure
         error_log("RAW GEMINI DATA: " . json_encode($result));
         return $result['candidates'][0]['content']['parts'][0]['text'] ?? "Could not generate AI summary.";
