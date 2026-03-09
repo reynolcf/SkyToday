@@ -30,6 +30,7 @@ class Gemini {
         curl_close($ch);
 
         // Dig into the Gemini response structure
+        error_log("RAW GEMINI DATA: " . json_encode($result));
         return $result['candidates'][0]['content']['parts'][0]['text'] ?? "Could not generate AI summary.";
     }
 }
