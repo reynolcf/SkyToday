@@ -2,8 +2,7 @@
 class Gemini {
     private $apiKey;
     // Updated to the stable endpoint
-    private $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
-
+    private $apiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent";
     public function __construct($apiKey) {
         $this->apiKey = $apiKey;
     }
