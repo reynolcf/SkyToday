@@ -9,10 +9,9 @@ ini_set('log_errors', 1);
 require_once "WeatherAPI.php";
 require_once "OpenMeteo.php";
 require_once "Location.php";
-// require_once "OpenAI.php";
 require_once "Gemini.php"; 
 
-$query = $_GET['query'];
+$query = $_GET['query'] ?? null;
 
 try {
     if ($query === null) {
@@ -31,39 +30,60 @@ try {
 
     // call the apis
     $weatherApiKey = getenv('WEATHER_API_KEY');
-    $openAiKey     = getenv('OPENAI_API_KEY');
-    $geminiKey = getenv('GEMINI_API_KEY');
+    $geminiKey     = getenv('GEMINI_API_KEY');
 
     $weatherApi = new WeatherAPI($weatherApiKey);
     $openMeteo  = new OpenMeteo();
-    // $openAI = new OpenAI($openAiKey);
-    $gemini = new Gemini($geminiKey);
+    $gemini     = new Gemini($geminiKey);
     
-
-// ... inside your try block
-
-
-
-// Call Gemini instead of OpenAI
-    
-
-    $weatherDataA = $weatherApi->getWeather($lat, $lon);
-    $weatherDataB = $openMeteo->getWeather($lat, $lon);
-    // $openAIResponse = $openAI->sendRequest($weatherDataA, $weatherDataB);
-
+    // 1. ISOLATE WEATHER API A
     try {
-        $aiResponse = $gemini->sendRequest($weatherDataA, $weatherDataB);
+        $weatherDataA = $weatherApi->getWeather($lat, $lon);
     } catch (Exception $e) {
-        $aiResponse = "AI is currently offline, but the data above is live!";
+        // If this hits a rate limit, we catch it here and provide a fallback array
+        $weatherDataA = ["error" => "WeatherAPI limits reached or data unavailable."];
+    }
+
+    // 2. ISOLATE OPENMETEO
+    try {
+        $weatherDataB = $openMeteo->getWeather($lat, $lon);
+    } catch (Exception $e) {
+        // Same here, provide a fallback array
+        $weatherDataB = ["error" => "OpenMeteo limits reached or data unavailable."];
+    }
+
+    // 3. SEPARATE GEMINI SUMMARIES
+    // Get AI summary for API A (Only if we actually got weather data)
+    if (isset($weatherDataA['error'])) {
+        $aiResponseA = "No weather data available to summarize.";
+    } else {
+        try {
+            $aiResponseA = $gemini->sendRequest($weatherDataA);
+        } catch (Exception $e) {
+            $aiResponseA = "AI is currently offline for this summary.";
+        }
+    }
+
+    // Get AI summary for API B (Only if we actually got weather data)
+    if (isset($weatherDataB['error'])) {
+        $aiResponseB = "No weather data available to summarize.";
+    } else {
+        try {
+            $aiResponseB = $gemini->sendRequest($weatherDataB);
+        } catch (Exception $e) {
+            $aiResponseB = "AI is currently offline for this summary.";
+        }
     }
   
+    // 4. OUTPUT THE JSON
     echo json_encode([
-        "success"     => true,
-        "query"       => $query,
+        "success"      => true,
+        "query"        => $query,
         "locationData" => $geoResult,
-        "weatherapi"  => $weatherDataA,
-        "openmeteo"   => $weatherDataB,
-        "openai" => $aiResponse
+        "weatherapi"   => $weatherDataA,
+        "openmeteo"    => $weatherDataB,
+        "gemini_a"     => $aiResponseA,
+        "gemini_b"     => $aiResponseB
     ]);
 
 } catch (Exception $e) {
