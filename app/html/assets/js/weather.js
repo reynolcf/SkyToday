@@ -114,16 +114,17 @@ function buildWeather(data) {
 
   const wA = data.weatherapi;
   const wB = data.openmeteo;
-  const aiSummary = data.openai; // This is the string from Gemini
+  
+  // Grab our new separate summaries
+  const aiSummaryA = data.gemini_a || data.openai || "Summary unavailable"; 
+  const aiSummaryB = data.gemini_b || data.openai || "Summary unavailable";
   const locationData = data.locationData;
 
   renderLocation(locationData);
 
-  // Pass the actual string directly
-  const html = buildWeatherApiCard(wA, aiSummary);
-  buildOpenMeteoCard(wB, aiSummary); 
-  
-  $("#result").html(html);
+  // Pass the correct summary to the correct card
+  buildWeatherApiCard(wA, aiSummaryA);
+  buildOpenMeteoCard(wB, aiSummaryB); 
 }
 function getWeather() {
   const query = $("#inputLocation").val().trim();
@@ -137,7 +138,7 @@ function getWeather() {
   $.ajax({
     url: "api/weather.php",
     method: "GET",
-    data: { query: query }, // ZIP or address
+    data: { query: query }, 
   })
     .done(function (data) {
       console.log("RAW API DATA:", data);
@@ -149,19 +150,21 @@ function getWeather() {
       $("#loadingSpinner").addClass("d-none");
       const wA = data.weatherapi;
       const wB = data.openmeteo;
-      const openAI = data.openai;
       const locationData = data.locationData;
+      
       const buildData = {
         query: query,
         weatherapi: wA,
         openmeteo: wB,
-        openai: openAI,
+        gemini_a: data.gemini_a, // New separate summary
+        gemini_b: data.gemini_b, // New separate summary
         locationData: locationData,
       };
       buildWeather(buildData);
 
       sessionStorage.setItem("weatherData", JSON.stringify(buildData));
-      // log to sql
+      
+      // log to sql (we package the two summaries together so we don't break your SQL schema!)
       $.ajax({
         url: "/final.php/addTransaction",
         method: "POST",
@@ -169,7 +172,7 @@ function getWeather() {
           request: query,
           weather1: JSON.stringify(wA),
           weather2: JSON.stringify(wB),
-          openai1: JSON.stringify(openAI),
+          openai1: JSON.stringify({ gemini_a: data.gemini_a, gemini_b: data.gemini_b }),
           locationdata: JSON.stringify(locationData),
         },
         dataType: "json",
@@ -179,7 +182,6 @@ function getWeather() {
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
           console.error("Failed:", textStatus, errorThrown);
-          console.log("Response:", jqXHR.responseText);
         });
     })
     .fail(function (res, textStatus, errorThrown) {
@@ -188,7 +190,6 @@ function getWeather() {
       $("#result").html(
         "AJAX error: " + textStatus + " " + (errorThrown || "")
       );
-      console.error("responseText:", res.responseText);
     });
 }
 
@@ -556,6 +557,21 @@ function buildStandardCard(data, openAiResponse) {
 }
 
 function buildWeatherApiCard(data, openAiResponse) {
+  // Check if PHP passed us a rate-limit error
+  if (data && data.error) {
+    const errorHtml = `
+      <div class="col-12 col-xl-6 gy-5">
+        <div class="card card-body shadow border-danger text-center p-5 h-100 d-flex flex-column justify-content-center align-items-center">
+            <img src="/assets/images/icons/weatherAPI.png" height="40" class="mb-3" style="width: max-content; filter: grayscale(100%); opacity: 0.5;" />
+            <h4 class="text-danger fw-bold">WeatherAPI Unavailable</h4>
+            <p class="text-muted m-0">${data.error}</p>
+        </div>
+      </div>
+    `;
+    $("#api-cards-row").append(errorHtml);
+    return; // Stop running the rest of the function
+  }
+
   const current = data.current;
   const temp_f = current.temp_f;
   const feelslike_f = current.feelslike_f;
@@ -675,6 +691,25 @@ function buildWeatherApiCard(data, openAiResponse) {
 
 // Open-Meteo version of your card builder
 function buildOpenMeteoCard(data, openAiResponse) {
+  // Check if PHP passed us a rate-limit error
+  if (data && data.error) {
+    const errorHtml = `
+      <div class="col-12 col-xl-6 gy-5">
+        <div class="card card-body shadow border-danger text-center p-5 h-100 d-flex flex-column justify-content-center align-items-center">
+            <img src="/assets/images/icons/openMeteo.png" height="40" class="mb-3" style="width: max-content; filter: grayscale(100%); opacity: 0.5;" />
+            <h4 class="text-danger fw-bold">OpenMeteo Unavailable</h4>
+            <p class="text-muted m-0">${data.error}</p>
+        </div>
+      </div>
+    `;
+    $("#api-cards-row").append(errorHtml);
+    return; // Stop running the rest of the function
+  }
+
+  if (!data || !data.current) {
+    console.error("OpenMeteo data is missing!");
+    return;
+  }
   // If PHP failed to get OpenMeteo data, stop here so the whole page doesn't crash
   if (!data || !data.current) {
     console.error("OpenMeteo data is missing!");
