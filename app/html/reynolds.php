@@ -290,7 +290,7 @@
             <p class="app-description slide-in-up">
               My Links
             </p>
-            <button class="btn btn-outline-primary d-flex align-items-center gap-2" type="button" onclick="location.href='https://www.linkedin.com/in/cameron-reynolds-215323329/'" width='30vw' height='100px'>
+            <button class="btn btn-outline-primary d-flex align-items-center gap-2" type="button" onclick="location.href='https://www.linkedin.com/in/cameron-reynolds-43a4b23b2/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BwMYYKuEQSVe7V7Ck5gNaDg%3D%3D'" width='30vw' height='100px'>
               <img src="assets/images/icons/linkedin.png" alt="LinkedIn logo" width='40px' height='40px'/>
               <span>Linked in</span>
             </button>
